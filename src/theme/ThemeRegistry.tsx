@@ -128,7 +128,7 @@ const themeOptions: ThemeOptions = {
           "& ::-webkit-scrollbar-track": {
             background: "#b3b3b3",
           },
-          "& ::-webkit-scrollbar-thumb": { background: "#14AE5C" },
+          "& ::-webkit-scrollbar-thumb": { background: "#969393" },
           "& ::-webkit-scrollbar-thumb:hover": { background: "#555" },
         },
         "::selection": {

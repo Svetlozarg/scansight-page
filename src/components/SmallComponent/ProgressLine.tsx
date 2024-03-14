@@ -23,9 +23,10 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 interface ProgressLineProps {
   value: number;
+  totalPoints: number;
 }
 
-const ProgressLine: React.FC<ProgressLineProps> = ({ value }) => {
+const ProgressLine: React.FC<ProgressLineProps> = ({ value, totalPoints }) => {
   return (
     <Stack my={6}>
       <BorderLinearProgress variant="determinate" value={value} />
@@ -40,7 +41,7 @@ const ProgressLine: React.FC<ProgressLineProps> = ({ value }) => {
           0 т.
         </Typography>
         <Typography component="p" variant="body1">
-          20 т.
+          {totalPoints} т.
         </Typography>
       </Stack>
     </Stack>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import Logo from "./Logo";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { USERNAME } from "@/helpers/helpers";
+import { USER_FIRSTNAME } from "@/helpers/helpers";
 import Link from "next/link";
 import { signOut } from "@/services/Auth/auth";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -13,7 +13,7 @@ import LoginIcon from "@mui/icons-material/Login";
 const Appbar = () => {
   const router = useRouter();
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [userName, setUserName] = useState<string>();
+  const [firstName, setFirstName] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
   const pathname = usePathname();
@@ -34,8 +34,8 @@ const Appbar = () => {
   }, []);
 
   useEffect(() => {
-    if (USERNAME) {
-      setUserName(USERNAME);
+    if (USER_FIRSTNAME) {
+      setFirstName(USER_FIRSTNAME);
     }
   }, []);
 
@@ -49,7 +49,7 @@ const Appbar = () => {
   return (
     <Stack
       width="100%"
-      minHeight="100px"
+      height="80px"
       position="fixed"
       direction="row"
       justifyContent="space-between"
@@ -57,35 +57,18 @@ const Appbar = () => {
       px={2}
       py={2}
       sx={{
+        borderTop: "10px solid #fff",
         transition: "250ms ease-in-out",
-        backgroundColor:
-          scrollPosition > 150 || pathname !== "/"
-            ? "common.white"
-            : "transparent",
-        boxShadow:
-          scrollPosition > 150 || pathname !== "/"
-            ? "0px 1px 5px 0px rgba(0,0,0,0.75)"
-            : "none",
+        backgroundColor: "primary.main",
+        boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.75)",
         px: "40px",
         zIndex: "9999",
       }}
     >
       <Logo />
 
-      {userName ? (
-        <Stack>
-          <IconButton onClick={handleClick}>
-            <AccountCircleIcon
-              sx={{
-                fontSize: "3rem",
-                color:
-                  scrollPosition > 150 || pathname !== "/"
-                    ? "common.black"
-                    : "common.white",
-              }}
-            />
-          </IconButton>
-
+      {firstName ? (
+        <Stack direction="row" justifyContent="center" alignItems="center">
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -118,18 +101,24 @@ const Appbar = () => {
 
           <Typography
             sx={{
-              color:
-                scrollPosition > 150 || pathname !== "/"
-                  ? "common.black"
-                  : "common.white",
+              color: "common.white",
             }}
           >
-            {userName}
+            {firstName}
           </Typography>
+
+          <IconButton onClick={handleClick}>
+            <AccountCircleIcon
+              sx={{
+                fontSize: "3rem",
+                color: "common.white",
+              }}
+            />
+          </IconButton>
         </Stack>
       ) : null}
 
-      {!userName ? (
+      {!firstName ? (
         <Link href="/auth/login">
           <Stack
             direction="row"
@@ -149,7 +138,14 @@ const Appbar = () => {
             >
               Вход
             </Typography>
-            <LoginIcon />
+            <LoginIcon
+              sx={{
+                color:
+                  scrollPosition > 150 || pathname !== "/"
+                    ? "common.black"
+                    : "common.white",
+              }}
+            />
           </Stack>
         </Link>
       ) : null}

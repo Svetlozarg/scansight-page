@@ -39,7 +39,7 @@ const HomeMap = () => {
       borderBottom="6px solid"
       borderColor="primary.main"
       bgcolor="secondary.main"
-      py={10}
+      py={20}
     >
       <Typography component="h2" variant="h2" textAlign="center" mb={10}>
         Туристически Обекти

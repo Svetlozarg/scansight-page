@@ -1,6 +1,8 @@
 export const signUp = async (
-  userName: string,
+  firstname: string,
+  lastname: string,
   email: string,
+  phone: string,
   password: string
 ) => {
   const headers = new Headers();
@@ -10,8 +12,10 @@ export const signUp = async (
     method: "POST",
     headers: headers,
     body: JSON.stringify({
-      username: userName,
+      firstname: firstname,
+      lastname: lastname,
       email: email,
+      phone: phone,
       password: password,
     }),
   });
@@ -42,8 +46,10 @@ export const signIn = async (email: string, password: string) => {
 
   if (res.ok && user) {
     document.cookie = "id=" + user._id + "; path=/";
-    document.cookie = "username=" + user.username + "; path=/";
+    document.cookie = "firstname=" + user.firstname + "; path=/";
+    document.cookie = "lastname=" + user.lastname + "; path=/";
     document.cookie = "email=" + user.email + "; path=/";
+    document.cookie = "phone=" + user.phone + "; path=/";
     document.cookie = "accessToken=" + user.accessToken + "; path=/";
     document.cookie = "role=" + user.role + "; path=/";
 

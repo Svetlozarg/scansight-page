@@ -1,25 +1,64 @@
 "use client";
-import { Stack, Typography } from "@mui/material";
+import { Skeleton, Stack, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
 import ProgressLine from "@/components/SmallComponent/ProgressLine";
 import { useEffect, useState } from "react";
-import { USERNAME, USER_EMAIL } from "@/helpers/helpers";
+import {
+  USER_EMAIL,
+  USER_FIRSTNAME,
+  USER_ID,
+  USER_LASTNAME,
+  USER_PHONE,
+} from "@/helpers/helpers";
 import EmailIcon from "@mui/icons-material/Email";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import { callApi } from "@/services/callApi";
+import { getQueryUserPoints } from "@/services/User/apiUserGetQueries";
+import { GetQueryUserPointsSnippet } from "@/services/User/apiUserSnippets";
 
 const ProfilePage = () => {
-  const [userName, setUserName] = useState<string>();
-  const [email, setEmail] = useState<string>();
+  const [user, setUser] = useState({
+    id: "",
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    points: 0,
+  });
+  const totalSights = 4;
+  const totalPoints = totalSights * 5;
 
   useEffect(() => {
-    if (USERNAME && USER_EMAIL) {
-      setUserName(USERNAME);
-      setEmail(USER_EMAIL);
-    }
+    (async () => {
+      if (
+        USER_ID &&
+        USER_FIRSTNAME &&
+        USER_LASTNAME &&
+        USER_EMAIL &&
+        USER_PHONE
+      ) {
+        const userPoints = await callApi<GetQueryUserPointsSnippet>({
+          query: getQueryUserPoints(USER_ID),
+        });
+
+        if (userPoints.success) {
+          setUser({
+            id: USER_ID,
+            firstname: USER_FIRSTNAME,
+            lastname: USER_LASTNAME,
+            email: USER_EMAIL,
+            phone: USER_PHONE,
+            points: 10,
+          });
+        }
+      }
+    })();
   }, []);
+
   return (
-    <Stack pt={25}>
+    <Stack pt={20}>
       <Stack justifyContent="center" alignItems="center" gap={4}>
         <Typography component="h2" variant="h2">
           Вашият Профил
@@ -28,27 +67,60 @@ const ProfilePage = () => {
         <AccountCircleIcon sx={{ fontSize: "15rem" }} />
 
         <Stack
+          width="100%"
           direction="row"
           justifyContent="center"
           alignItems="center"
-          gap={2}
+          gap={4}
+          flexWrap="wrap"
         >
-          <PersonIcon />
-          <Typography component="p" variant="body1">
-            {userName}
-          </Typography>
-        </Stack>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={2}
+          >
+            <PersonIcon />
+            <Typography component="p" variant="body1">
+              {user.firstname ? (
+                `${user.firstname} ${user.lastname}`
+              ) : (
+                <Skeleton variant="text" width={150} height={25} />
+              )}
+            </Typography>
+          </Stack>
 
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          gap={2}
-        >
-          <EmailIcon />
-          <Typography component="p" variant="body1">
-            {email}
-          </Typography>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={2}
+          >
+            <EmailIcon />
+            <Typography component="p" variant="body1">
+              {user.email ? (
+                user.email
+              ) : (
+                <Skeleton variant="text" width={150} height={25} />
+              )}
+            </Typography>
+          </Stack>
+
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            gap={2}
+          >
+            <LocalPhoneIcon />
+            <Typography component="p" variant="body1">
+              {user.phone ? (
+                user.phone
+              ) : (
+                <Skeleton variant="text" width={150} height={25} />
+              )}
+            </Typography>
+          </Stack>
         </Stack>
       </Stack>
 
@@ -74,11 +146,11 @@ const ProfilePage = () => {
         >
           <Stack gap={2}>
             <Typography component="h3" variant="h2">
-              Посетили сте 2/4 обекта!
+              Посетили сте {user.points / 5}/{totalSights} обекта!
             </Typography>
 
             <Typography component="p" variant="h4" fontWeight="normal">
-              Вие имате 10 събрани точки!
+              Вие имате {user.points} събрани точки!
             </Typography>
           </Stack>
 
@@ -92,12 +164,15 @@ const ProfilePage = () => {
             p={5}
           >
             <Typography component="h4" variant="h1" color="common.white">
-              10 т.
+              {user.points} т.
             </Typography>
           </Stack>
         </Stack>
 
-        <ProgressLine value={50} />
+        <ProgressLine
+          value={(user.points / totalPoints) * 100}
+          totalPoints={totalPoints}
+        />
 
         <Stack justifyContent="center" alignItems="center" gap={6}>
           <Image
@@ -108,11 +183,12 @@ const ProfilePage = () => {
           />
           <Stack justifyContent="center" alignItems="center" gap={2}>
             <Typography component="p" variant="h3">
-              10/20 т. събрани
+              {user.points}/{totalPoints} т. събрани
             </Typography>
 
             <Typography component="h3" variant="h4">
-              Съберете общо 20 точки, за да вземете вашият сертификат!
+              Съберете общо {totalPoints} точки, за да вземете вашият
+              сертификат!
             </Typography>
           </Stack>
         </Stack>

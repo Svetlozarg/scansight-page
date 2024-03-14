@@ -10,7 +10,7 @@ const HouseVanga = () => {
       py={{ xs: 4, sm: 4, md: 4 }}
       textAlign="justify"
     >
-      <Typography component="h4" variant="h3">
+      <Typography component="h4" variant="h3" textAlign="center">
         Вратата към мистериите на миналото, прозорец към необятния свят на
         бъдещето.
       </Typography>

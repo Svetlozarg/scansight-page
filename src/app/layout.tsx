@@ -2,9 +2,6 @@ import Appbar from "@/components/Layout/Appbar";
 import Footer from "@/components/Layout/Footer";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ScanSight",
@@ -19,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeRegistry>
-        <body className={inter.className}>
+        <body>
           <Appbar />
           {children}
           <Footer />

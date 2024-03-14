@@ -9,21 +9,32 @@ import Link from "next/link";
 import { object, string, ref } from "yup";
 import { signUp } from "@/services/Auth/auth";
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const fieldValidation = object({
-  userName: string().required("Полето е задължително"),
+  firstname: string().required("Полето е задължително"),
+  lastname: string().required("Полето е задължително"),
   email: string()
     .email("Въведете валиден имейл")
+    .required("Полето е задължително"),
+  phone: string()
+    .matches(phoneRegExp, "Phone number is not valid")
     .required("Полето е задължително"),
   password: string()
     .trim()
     .min(8, "Дължитената трябва да е поне 8 символа")
     .required("Полето е задължително"),
-  confirmPassword: string().oneOf([ref("password")], "Паролите не са еднакви"),
+  confirmPassword: string()
+    .oneOf([ref("password")], "Паролите не са еднакви")
+    .required("Полето е задължително"),
 });
 
 type RegisterFormValues = {
-  userName: string;
+  firstname: string;
+  lastname: string;
   email: string;
+  phone: string;
   password: string;
   confirmPassword: string;
 };
@@ -33,8 +44,10 @@ const RegisterPage = () => {
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const initialValues: RegisterFormValues = {
-    userName: "",
+    firstname: "",
+    lastname: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   };
@@ -46,8 +59,10 @@ const RegisterPage = () => {
       setAlertMessage(null);
 
       const newUser = await signUp(
-        values.userName,
+        values.firstname,
+        values.lastname,
         values.email,
+        values.phone,
         values.password
       );
       if (newUser) {
@@ -69,6 +84,8 @@ const RegisterPage = () => {
       height="100vh"
       justifyContent="center"
       alignItems="center"
+      overflow="auto"
+      p={1}
     >
       <Paper sx={{ width: "100%", maxWidth: "600px", p: 4 }}>
         <Stack justifyContent="center" alignItems="center" gap={2}>
@@ -90,13 +107,23 @@ const RegisterPage = () => {
               <Form onSubmit={handleSubmit}>
                 <Stack spacing={3} mt={3}>
                   <TextField
-                    name="userName"
-                    label="Потребителско Име"
-                    error={touched["userName"] && !!errors["userName"]}
-                    helperText={touched["userName"] && errors["userName"]}
+                    name="firstname"
+                    label="Име"
+                    error={touched["firstname"] && !!errors["firstname"]}
+                    helperText={touched["firstname"] && errors["firstname"]}
                     onChange={handleChange}
-                    value={values.userName}
-                    type="userName"
+                    value={values.firstname}
+                    type="firstname"
+                  />
+
+                  <TextField
+                    name="lastname"
+                    label="Фамилия"
+                    error={touched["lastname"] && !!errors["lastname"]}
+                    helperText={touched["lastname"] && errors["lastname"]}
+                    onChange={handleChange}
+                    value={values.lastname}
+                    type="lastname"
                   />
 
                   <TextField
@@ -107,6 +134,16 @@ const RegisterPage = () => {
                     onChange={handleChange}
                     value={values.email}
                     type="email"
+                  />
+
+                  <TextField
+                    name="phone"
+                    label="Тел. Номер"
+                    error={touched["phone"] && !!errors["phone"]}
+                    helperText={touched["phone"] && errors["phone"]}
+                    onChange={handleChange}
+                    value={values.phone}
+                    type="phone"
                   />
 
                   <TextField

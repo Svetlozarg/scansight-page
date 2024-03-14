@@ -64,7 +64,8 @@ export const getWeekData = () => {
 };
 
 export const USER_ID = getCookie("id");
-export const USERNAME = getCookie("username");
+export const USER_FIRSTNAME = getCookie("firstname");
+export const USER_LASTNAME = getCookie("lastname");
 export const USER_EMAIL = getCookie("email");
-export const USER_ROLE = getCookie("role");
+export const USER_PHONE = getCookie("phone");
 export const USER_ACCESSTOKEN = getCookie("accessToken");

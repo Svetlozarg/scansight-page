@@ -1,8 +1,11 @@
 export type User = {
   _id: string;
-  username: string;
+  firstname: string;
+  lastname: string;
   email: string;
+  phone: string;
   password: string;
+  points: number;
   createdAt: Date;
   updatedAt: Date;
 };

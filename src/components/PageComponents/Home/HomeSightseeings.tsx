@@ -5,7 +5,6 @@ import HeracleaSintica from "@/components/SmallComponent/HomeSightseeings/Heracl
 import HouseVanga from "@/components/SmallComponent/HomeSightseeings/HouseVanga";
 import PetrichMuseum from "@/components/SmallComponent/HomeSightseeings/PetrichMuseum";
 import SamuilFortress from "@/components/SmallComponent/HomeSightseeings/SamuilFortress";
-import GiaurKalesi from "@/components/SmallComponent/HomeSightseeings/GiaurKalesi";
 
 const TABS_DATA = [
   {
@@ -19,9 +18,6 @@ const TABS_DATA = [
   },
   {
     title: "4. Самуилова Крепост",
-  },
-  {
-    title: "5. Гяур Калеси",
   },
 ];
 
@@ -99,7 +95,6 @@ const HomeSightseeings = () => {
           {tab.title === "2. Къща Ванга" ? <HouseVanga /> : null}
           {tab.title === "3. Исторически  музей" ? <PetrichMuseum /> : null}
           {tab.title === "4. Самуилова Крепост" ? <SamuilFortress /> : null}
-          {tab.title === "5. Гяур Калеси" ? <GiaurKalesi /> : null}
         </CustomTabPanel>
       ))}
     </Stack>

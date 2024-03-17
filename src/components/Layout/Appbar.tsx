@@ -12,7 +12,6 @@ import LoginIcon from "@mui/icons-material/Login";
 
 const Appbar = () => {
   const router = useRouter();
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [firstName, setFirstName] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
@@ -21,17 +20,10 @@ const Appbar = () => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   useEffect(() => {
     if (USER_FIRSTNAME) {
@@ -39,29 +31,20 @@ const Appbar = () => {
     }
   }, []);
 
-  const handleScroll = () => {
-    const position = window.pageYOffset;
-    setScrollPosition(position);
-  };
-
   if (pathname === "/auth/login" || pathname === "/auth/register") return;
 
   return (
     <Stack
       width="100%"
       height="80px"
-      position="fixed"
+      position="absolute"
+      top="0"
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      px={2}
-      py={2}
+      px={1}
+      py={1}
       sx={{
-        borderTop: "10px solid #fff",
-        transition: "250ms ease-in-out",
-        backgroundColor: "primary.main",
-        boxShadow: "0px 1px 5px 0px rgba(0,0,0,0.75)",
-        px: "40px",
         zIndex: "9999",
       }}
     >
@@ -100,8 +83,11 @@ const Appbar = () => {
           </Menu>
 
           <Typography
+            component="p"
+            variant="h4"
+            fontWeight="normal"
             sx={{
-              color: "common.white",
+              color: "common.black",
             }}
           >
             {firstName}
@@ -110,8 +96,8 @@ const Appbar = () => {
           <IconButton onClick={handleClick}>
             <AccountCircleIcon
               sx={{
-                fontSize: "3rem",
-                color: "common.white",
+                fontSize: "4rem",
+                color: "common.black",
               }}
             />
           </IconButton>
@@ -125,25 +111,25 @@ const Appbar = () => {
             justifyContent="center"
             alignItems="center"
             gap={1}
+            border="2px solid"
+            borderColor="common.white"
+            py={0.5}
+            px={1}
+            borderRadius="10px"
+            bgcolor="common.white"
           >
             <Typography
               component="h4"
               variant="h4"
               sx={{
-                color:
-                  scrollPosition > 150 || pathname !== "/"
-                    ? "common.black"
-                    : "common.white",
+                color: "common.black",
               }}
             >
               Вход
             </Typography>
             <LoginIcon
               sx={{
-                color:
-                  scrollPosition > 150 || pathname !== "/"
-                    ? "common.black"
-                    : "common.white",
+                color: "common.black",
               }}
             />
           </Stack>

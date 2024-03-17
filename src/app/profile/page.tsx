@@ -1,5 +1,5 @@
 "use client";
-import { Skeleton, Stack, Typography } from "@mui/material";
+import { Breadcrumbs, Skeleton, Stack, Typography } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PersonIcon from "@mui/icons-material/Person";
 import Image from "next/image";
@@ -17,6 +17,7 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { callApi } from "@/services/callApi";
 import { getQueryUserPoints } from "@/services/User/apiUserGetQueries";
 import { GetQueryUserPointsSnippet } from "@/services/User/apiUserSnippets";
+import Link from "next/link";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -125,6 +126,16 @@ const ProfilePage = () => {
       </Stack>
 
       <Stack width="100%" height="20px" bgcolor="primary.main" my={10}></Stack>
+
+      <Stack width="100%" maxWidth="1400px" margin="0 auto" mb={2}>
+        <Breadcrumbs aria-label="breadcrumb">
+          <Link color="inherit" href="/">
+            {"<"} Назад
+          </Link>
+          <Typography color="inherit">Начало</Typography>
+          <Typography color="text.primary">Профил</Typography>
+        </Breadcrumbs>
+      </Stack>
 
       <Stack
         width="100%"

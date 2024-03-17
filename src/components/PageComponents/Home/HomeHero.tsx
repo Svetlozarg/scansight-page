@@ -1,79 +1,72 @@
-"use client";
 import { Stack, Typography } from "@mui/material";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-};
-
-const IMAGES_DATA = [
-  "https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%20(1)-min_eDDWNTLPh.jpg",
-  "https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F/HOR03820-min_azWmI813e.JPG?updatedAt=1708357634737",
-  "https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%20(4)-min_5gZlI_why.jpg?updatedAt=1708357634746",
-];
+import heroImg from "../../../../public/hero-img.png";
+import Image from "next/image";
 
 const HomeHero = () => {
   return (
-    <Carousel
-      swipeable
-      draggable
-      showDots={true}
-      responsive={responsive}
-      infinite={true}
-      autoPlay
-      autoPlaySpeed={3000}
-      keyBoardControl={true}
-      customTransition="transform 500ms ease-in-out"
-      transitionDuration={500}
+    <Stack
+      width="100%"
+      height={{ sm: "100%", md: "100vh" }}
+      justifyContent="center"
+      alignItems="center"
+      direction={{ sm: "column", md: "row" }}
+      pt={{ xs: 20, sm: 20, md: 0 }}
+      sx={{
+        background: {
+          xs: "linear-gradient(to bottom right, #B0E1B4, #14AE5C)",
+          sm: "linear-gradient(to bottom right, #B0E1B4, #14AE5C)",
+          md: "transparent",
+        },
+      }}
     >
-      {IMAGES_DATA.map((image, index) => (
-        <Stack
-          key={index}
-          width="100%"
-          height="80vh"
-          sx={{
-            backgroundImage: `url('${image}')`,
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        >
-          <Stack
-            width="100%"
-            height="100%"
-            sx={{
-              backgroundColor: "rgba(0, 0, 0, 0.3)",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 4,
-            }}
-          >
-            <Typography component="h1" variant="h1" color="common.white">
-              ScanSight
-            </Typography>
+      <Stack
+        width="100%"
+        maxWidth={{ sm: "100%", md: "45vw" }}
+        flex={1}
+        gap={2}
+        px={2}
+      >
+        <Stack width="100%" maxWidth={{ sm: "100%", md: "700px" }} gap={2}>
+          <Typography component="h1" variant="h1">
+            ScanSight
+          </Typography>
 
-            <Typography component="h2" variant="h3" color="common.white">
-              Вашият Пътеводител към Туристическите Чудеса на Петрич!
-            </Typography>
-          </Stack>
+          <Typography component="p" variant="body1" textAlign="justify">
+            Сканирайки QR кодове на различни атракции и забележителности,
+            ScanSight възнаграждава потребителите с определен брой точки за
+            всяко посещение.
+          </Typography>
+
+          <Typography component="p" variant="body1" textAlign="justify">
+            Тези точки не само отразяват активността на потребителите, но и ги
+            вдъхновяват да продължават да пътуват и да откриват нови места.
+            Събирайки достатъчно точки, потребителите могат да ги използват за
+            различни награди и сертификати предоставени от Община Петрич.
+          </Typography>
         </Stack>
-      ))}
-    </Carousel>
+      </Stack>
+
+      <Stack
+        height={{ xs: "40vh", sm: "40vh", md: "100vh" }}
+        flex={1}
+        sx={{
+          background: {
+            sm: "transparent",
+            md: "linear-gradient(to bottom right, #B0E1B4, #14AE5C)",
+          },
+          mask: "radial-gradient(147.57px at 204px 50%,#000 99%,#0000 101%) 0 calc(50% - 160px)/100% 320px, radial-gradient(147.57px at -124px 50%,#0000 99%,#000 101%) 80px 50%/100% 320px repeat-y",
+        }}
+      >
+        <Image
+          src={heroImg}
+          alt="img"
+          width={200}
+          height={200}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      </Stack>
+    </Stack>
   );
 };
 

@@ -6,10 +6,9 @@ import { Stack } from "@mui/material";
 const HomePage = () => {
   return (
     <Stack>
+      <HomeHero />
       <HomeMap />
       <HomeSightseeings />
-      <HomeHero />
-      {/* <HomeAbout /> */}
     </Stack>
   );
 };

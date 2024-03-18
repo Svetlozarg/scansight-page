@@ -68,7 +68,7 @@ const ProfilePage = () => {
             lastname: user.lastname,
             email: user.email,
             phone: user.phone,
-            points: 20,
+            points: user.points,
             locations: user.locations,
           });
 

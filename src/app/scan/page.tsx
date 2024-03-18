@@ -1,10 +1,18 @@
 "use client";
-import { Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import logo from "../../../public/logo-black.png";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { callApi } from "@/services/callApi";
+import {
+  postQueryAddPointsToUser,
+  postQueryIpdateUserLocation,
+} from "@/services/User/apiUserPostQueries";
+import { USER_ID } from "@/helpers/helpers";
+import { GetQueryUserById } from "@/services/User/apiUserSnippets";
+import { getQueryUserById } from "@/services/User/apiUserGetQueries";
 
 const LOCATIONS_DATA = [
   {
@@ -13,7 +21,7 @@ const LOCATIONS_DATA = [
     url: "https://visitpetrich.vercel.app/tourism/heraclea-sintica",
   },
   {
-    name: "Исторически Музей",
+    name: "Исторически музей",
     scannedName: "history-museum",
     url: "https://visitpetrich.vercel.app/tourism/petrich-museum",
   },
@@ -31,23 +39,73 @@ const LOCATIONS_DATA = [
 
 const ScanPage = () => {
   const searchParams = useSearchParams();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isVisited, setIsVisited] = useState<boolean>(false);
 
   const scannedLocation = searchParams.get("location");
 
-  console.log(scannedLocation);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(true);
+    }, 2000);
+  }, []);
 
   useEffect(() => {
-    if (scannedLocation) {
-      const locationData = LOCATIONS_DATA.find(
-        (location) =>
-          location.name.toLowerCase().replace(" ", "-") === scannedLocation
-      );
+    (async () => {
+      try {
+        if (scannedLocation && USER_ID) {
+          if (
+            scannedLocation !== "heracleq-sintica" &&
+            scannedLocation !== "history-museum" &&
+            scannedLocation !== "samuil-fortress" &&
+            scannedLocation !== "house-of-vanga"
+          ) {
+            window.location.replace("/");
+          }
 
-      if (locationData) {
-        console.log(locationData.url);
+          const user = await callApi<GetQueryUserById>({
+            query: getQueryUserById(USER_ID),
+          });
+
+          if (user.success) {
+            const userLocations = user.data.locations;
+            const locationData = LOCATIONS_DATA.find(
+              (location) => location.scannedName === scannedLocation
+            );
+
+            if (locationData) {
+              const isLocationScanned = userLocations.find(
+                (location) => location.name === locationData.name
+              );
+
+              if (!isLocationScanned) return;
+
+              if (!isLocationScanned.visited) {
+                await callApi({
+                  query: postQueryIpdateUserLocation(USER_ID, {
+                    location: isLocationScanned.name as
+                      | "Хераклея Синтика"
+                      | "Самуилова Крепост"
+                      | "Къща Ванга"
+                      | "Исторически музей",
+                  }),
+                });
+                await callApi({
+                  query: postQueryAddPointsToUser(USER_ID, { points: 5 }),
+                });
+              } else {
+                setIsVisited(true);
+              }
+            }
+          }
+        } else {
+          window.location.replace("/");
+        }
+      } catch (err) {
+        console.error(err);
       }
-    }
-  }, []);
+    })();
+  }, [scannedLocation]);
 
   return (
     <Stack
@@ -58,67 +116,137 @@ const ScanPage = () => {
       px={2}
       mt={10}
     >
-      <Stack
-        width="100%"
-        maxWidth="1000px"
-        margin="0 auto"
-        justifyContent="center"
-        alignItems="center"
-        gap={4}
-        sx={{
-          border: "2px solid",
-          borderColor: "divider",
-          borderRadius: "10px",
-          bgcolor: "background.paper",
-          p: 5,
-          mb: 10,
-        }}
-      >
-        <Image
-          src={logo}
-          width={300}
-          height={300}
-          style={{ width: "300px", height: "auto", objectFit: "cover" }}
-          alt="Logo"
-        />
-
-        <Typography
-          component="h2"
-          variant="h2"
-          color="primary.main"
-          textAlign="center"
-        >
-          Успешно сканирахте кода
-        </Typography>
-
-        <Typography component="p" variant="body1" textAlign="center">
-          Локацията беше успешно сканирана от вас и бяха добавени{" "}
-          <Typography component="span" variant="h4" color="primary.main">
-            5 точки
-          </Typography>{" "}
-          към вашият профил!
-        </Typography>
-
-        <Typography component="p" variant="body1" textAlign="center">
-          Ако имате желание може да прочетете повече за локацията
-          {scannedLocation === "heracleq-sintica" ? "Хераклея Синтика" : null}
-          {scannedLocation === "history-museum" ? "Исторически Музей" : null}
-          {scannedLocation === "samuil-fortress" ? "Самуилова Крепост" : null}
-          {scannedLocation === "house-of-vanga" ? "Къща Ванга" : null}{" "}
-          <Link
-            href="https://visitpetrich.vercel.app/tourism/heraclea-sintica"
-            style={{ textDecoration: "underline" }}
+      {loading ? (
+        !isVisited ? (
+          <Stack
+            width="100%"
+            maxWidth="1000px"
+            margin="0 auto"
+            justifyContent="center"
+            alignItems="center"
+            gap={4}
+            sx={{
+              border: "2px solid",
+              borderColor: "divider",
+              borderRadius: "10px",
+              bgcolor: "background.paper",
+              p: 5,
+              mb: 10,
+            }}
           >
-            тук
-          </Link>
-        </Typography>
+            <Image
+              src={logo}
+              width={300}
+              height={300}
+              style={{ width: "300px", height: "auto", objectFit: "cover" }}
+              alt="Logo"
+            />
 
-        <Link href="/profile" style={{ textDecoration: "underline" }}>
-          <Typography component="p" variant="body1" textAlign="center">
-            Вижте вашите точки и посетени локации
-          </Typography>
-        </Link>
-      </Stack>
+            <Typography
+              component="h2"
+              variant="h2"
+              color="primary.main"
+              textAlign="center"
+            >
+              Успешно сканирахте кода
+            </Typography>
+
+            <Typography component="p" variant="body1" textAlign="center">
+              Локацията беше успешно сканирана от вас и бяха добавени{" "}
+              <Typography component="span" variant="h4" color="primary.main">
+                5 точки
+              </Typography>{" "}
+              към вашият профил!
+            </Typography>
+
+            <Typography component="p" variant="body1" textAlign="center">
+              Ако имате желание може да прочетете повече за локацията{" "}
+              {scannedLocation === "heracleq-sintica"
+                ? "Хераклея Синтика"
+                : null}
+              {scannedLocation === "history-museum"
+                ? "Исторически Музей"
+                : null}
+              {scannedLocation === "samuil-fortress"
+                ? "Самуилова Крепост"
+                : null}
+              {scannedLocation === "house-of-vanga" ? "Къща Ванга" : null}{" "}
+              <Link
+                href="https://visitpetrich.vercel.app/tourism/heraclea-sintica"
+                style={{ textDecoration: "underline" }}
+              >
+                тук
+              </Link>
+            </Typography>
+
+            <Link href="/profile" style={{ textDecoration: "underline" }}>
+              <Typography component="p" variant="body1" textAlign="center">
+                Вижте вашите точки и посетени локации
+              </Typography>
+            </Link>
+          </Stack>
+        ) : (
+          <Stack
+            width="100%"
+            maxWidth="1000px"
+            margin="0 auto"
+            justifyContent="center"
+            alignItems="center"
+            gap={4}
+            sx={{
+              border: "2px solid",
+              borderColor: "divider",
+              borderRadius: "10px",
+              bgcolor: "background.paper",
+              p: 5,
+              mb: 10,
+            }}
+          >
+            <Image
+              src={logo}
+              width={300}
+              height={300}
+              style={{ width: "300px", height: "auto", objectFit: "cover" }}
+              alt="Logo"
+            />
+
+            <Typography
+              component="h2"
+              variant="h2"
+              color="error"
+              textAlign="center"
+            >
+              Вече сте сканирали този код
+            </Typography>
+
+            <Link href="/profile" style={{ textDecoration: "underline" }}>
+              <Typography component="p" variant="body1" textAlign="center">
+                Вижте вашите точки и посетени локации
+              </Typography>
+            </Link>
+          </Stack>
+        )
+      ) : (
+        <Stack
+          width="100%"
+          maxWidth="1000px"
+          height="550px"
+          margin="0 auto"
+          justifyContent="center"
+          alignItems="center"
+          gap={4}
+          sx={{
+            border: "2px solid",
+            borderColor: "divider",
+            borderRadius: "10px",
+            bgcolor: "background.paper",
+            p: 5,
+            mb: 10,
+          }}
+        >
+          <CircularProgress size="10rem" />
+        </Stack>
+      )}
     </Stack>
   );
 };

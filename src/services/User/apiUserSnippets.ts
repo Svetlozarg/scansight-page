@@ -5,6 +5,11 @@ export type GetQueryAllUsersSnippet = {
   data: User[];
 };
 
+export type GetQueryUserById = {
+  success: boolean;
+  data: User;
+};
+
 export type GetQueryUserPointsSnippet = {
   success: boolean;
   data: {

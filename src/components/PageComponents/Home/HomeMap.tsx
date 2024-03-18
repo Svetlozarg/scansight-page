@@ -2,6 +2,8 @@ import { Stack, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import Button from "@/components/MUIComponents/Button";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import StarsIcon from "@mui/icons-material/Stars";
 
 const MAP_CARDS_DATA = [
   {
@@ -39,6 +41,7 @@ const HomeMap = () => {
       <Typography component="h2" variant="h2" textAlign="center" mb={10}>
         Сканирай Туристически Обект
       </Typography>
+
       <Stack
         width="100%"
         maxWidth="1800px"
@@ -53,6 +56,111 @@ const HomeMap = () => {
         {MAP_CARDS_DATA.map((card, index) => (
           <HomeMapCard key={index} title={card.title} image={card.image} />
         ))}
+      </Stack>
+
+      <Stack
+        id="points-and-prizes"
+        width="100%"
+        maxWidth="1400px"
+        margin="0 auto"
+        mt={16}
+        px={4}
+      >
+        <Typography component="h2" variant="h2" textAlign="center" mb={4}>
+          Точки и Награди
+        </Typography>
+
+        <Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            gap={0.5}
+          >
+            <StarsIcon
+              sx={{
+                color: "#FEC50F",
+              }}
+            />
+            <Typography component="p" variant="h5" textAlign="justify">
+              Точки:
+            </Typography>
+          </Stack>
+
+          <ul>
+            <li>
+              Всеки посетен{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                туристически обект
+              </Typography>
+              , който има стикер с логото на ‘ScanSight’ в Община Петрич носи{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                5 точки
+              </Typography>{" "}
+              в акаунта на своя потребител.
+            </li>
+            <li>
+              Местата за посещение, които влизат в графа{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                туристически обекти{" "}
+              </Typography>
+              са следните: Хераклея Синтика, Къща Ванга, Исторически музей
+              Петрич и Самуилова Крепост.{" "}
+            </li>
+            <li>
+              Всеки посетен обект от секция хобита и свободно време, който има
+              стикер с логото на &apos;ScanSight&apos; в Община Петрич носи{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                3 точки
+              </Typography>{" "}
+              в акаунта на своя потребител.
+            </li>
+            <li>
+              Местата за посещение, които влизат в графа{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                хобита и свободно време
+              </Typography>{" "}
+              са следните: кино, билярд клуб
+            </li>
+          </ul>
+        </Stack>
+
+        <Stack>
+          <Stack
+            direction="row"
+            justifyContent="flex-start"
+            alignItems="flex-end"
+            gap={0.5}
+          >
+            <EmojiEventsIcon sx={{ color: "#FEC50F" }} />
+            <Typography component="p" variant="h5" textAlign="justify">
+              Награди:
+            </Typography>
+          </Stack>
+
+          <ul>
+            <li>
+              <Typography component="span" variant="body1" color="primary.main">
+                20{" "}
+              </Typography>
+              събрани точки отговарят на{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                Сертификат за Турист на Годината
+              </Typography>{" "}
+              .
+            </li>
+            <li>
+              <Typography component="span" variant="body1" color="primary.main">
+                50{" "}
+              </Typography>
+              събрани точки отговарят на предметна награда{" "}
+              <Typography component="span" variant="body1" color="primary.main">
+                тениска, шапка или изненада
+              </Typography>{" "}
+              предоставена от Община Петрич.
+            </li>
+          </ul>
+        </Stack>
       </Stack>
     </Stack>
   );

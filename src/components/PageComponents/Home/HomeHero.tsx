@@ -2,6 +2,7 @@ import { Stack, Typography } from "@mui/material";
 
 import heroImg from "../../../../public/hero-img.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const HomeHero = () => {
   return (
@@ -27,22 +28,69 @@ const HomeHero = () => {
         gap={2}
         px={2}
       >
-        <Stack width="100%" maxWidth={{ sm: "100%", md: "700px" }} gap={2}>
-          <Typography component="h1" variant="h1">
-            ScanSight
+        <Stack
+          width="100%"
+          maxWidth={{ sm: "100%", md: "700px" }}
+          gap={4}
+          pt="40px"
+        >
+          <Typography component="p" variant="body1" textAlign="justify">
+            <Typography
+              component="span"
+              variant="h3"
+              color={{
+                xs: "common.white",
+                sm: "common.white",
+                md: "primary.main",
+              }}
+            >
+              ScanSight{" "}
+            </Typography>
+            е софтуер, който предоставя на своите потребители възможността да
+            сканира предварително обозначени QR кодове. Тези стикери и табели са
+            позиционирани на различни туристически обекти в региона, като всеки
+            сканиран QR код носи определен брой точки в акаунта на своя
+            потребител.
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Сканирайки QR кодове на различни атракции и забележителности,
-            ScanSight възнаграждава потребителите с определен брой точки за
-            всяко посещение.
+            Целта на приложението е да мотивира туристическата активност в
+            региона, като направи преживяването на потребителите интересно и
+            забавно.
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Тези точки не само отразяват активността на потребителите, но и ги
-            вдъхновяват да продължават да пътуват и да откриват нови места.
-            Събирайки достатъчно точки, потребителите могат да ги използват за
-            различни награди и сертификати предоставени от Община Петрич.
+            Софтуерът е обвързан с Община Петрич и предоставя уникалната
+            възможност за печалба на различни награди, които отговарят на
+            събраният брой точки от потребителя. За повече информация относно
+            точковата система и наградите може да прочетете{" "}
+            <Link href="#points-and-prizes">
+              <Typography
+                component="span"
+                variant="body1"
+                color={{
+                  xs: "common.white",
+                  sm: "common.white",
+                  md: "primary.main",
+                }}
+                sx={{
+                  borderBottom: "1px solid",
+                  borderColor: {
+                    xs: "common.white",
+                    sm: "common.white",
+                    md: "primary.main",
+                  },
+                }}
+              >
+                тук
+              </Typography>
+            </Link>
+            .
+          </Typography>
+
+          <Typography component="p" variant="body1" textAlign="justify">
+            Екипът на ‘ScanSight’ и Община Петрич Ви пожелава успех и приятна
+            игра!
           </Typography>
         </Stack>
       </Stack>

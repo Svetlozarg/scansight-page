@@ -53,7 +53,7 @@ export const signIn = async (email: string, password: string) => {
     document.cookie = "accessToken=" + user.accessToken + "; path=/";
     document.cookie = "role=" + user.role + "; path=/";
 
-    window.location.assign("/profile");
+    window.location.assign("/");
 
     return user;
   } else return null;

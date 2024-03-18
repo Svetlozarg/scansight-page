@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import Alert, { AlertStatuses } from "@/components/MUIComponents/Alert";
 import Button from "@/components/MUIComponents/Button";
@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import Link from "next/link";
 import { object, string, ref } from "yup";
 import { signUp } from "@/services/Auth/auth";
+import { USER_ID } from "@/helpers/helpers";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -51,6 +52,12 @@ const RegisterPage = () => {
     password: "",
     confirmPassword: "",
   };
+
+  useEffect(() => {
+    if (USER_ID) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const handleFormSubmit = async (values: RegisterFormValues) => {
     try {

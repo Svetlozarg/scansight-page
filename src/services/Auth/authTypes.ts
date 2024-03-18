@@ -1,3 +1,8 @@
+export type LocationType = {
+  name: string;
+  visited: boolean;
+};
+
 export type User = {
   _id: string;
   firstname: string;
@@ -6,6 +11,7 @@ export type User = {
   phone: string;
   password: string;
   points: number;
+  locations: LocationType[];
   createdAt: Date;
   updatedAt: Date;
 };

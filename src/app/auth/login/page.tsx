@@ -2,12 +2,13 @@
 import Alert, { AlertStatuses } from "@/components/MUIComponents/Alert";
 import Button from "@/components/MUIComponents/Button";
 import TextField from "@/components/MUIComponents/TextField";
+import { USER_ID } from "@/helpers/helpers";
 import { signIn } from "@/services/Auth/auth";
 import { SignInSnippet } from "@/services/Auth/authTypes";
 import { CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { object, string } from "yup";
 
 const fieldValidation = object({
@@ -33,6 +34,12 @@ const LoginPage = () => {
     email: "",
     password: "",
   };
+
+  useEffect(() => {
+    if (USER_ID) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const handleFormSubmit = async (values: LoginFormValues) => {
     try {

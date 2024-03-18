@@ -5,6 +5,11 @@ export const getQueryAllUsers: Query = {
   method: "GET",
 };
 
+export const getQueryUserById = (userId: string): Query => ({
+  endpoint: `/user/${userId}`,
+  method: "GET",
+});
+
 export const getQueryUserPoints = (userId: string): Query => ({
   endpoint: `/user/${userId}/points`,
   method: "GET",

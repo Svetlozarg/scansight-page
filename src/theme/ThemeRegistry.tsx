@@ -121,6 +121,7 @@ const themeOptions: ThemeOptions = {
     MuiCssBaseline: {
       styleOverrides: {
         html: {
+          scrollBehavior: "smooth",
           "& ::-webkit-scrollbar": {
             width: "11px",
             height: "8px",

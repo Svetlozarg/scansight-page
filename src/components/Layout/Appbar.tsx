@@ -88,6 +88,9 @@ const Appbar = () => {
             fontWeight="normal"
             sx={{
               color: "common.black",
+              "@media (max-width: 340px)": {
+                display: "none",
+              },
             }}
           >
             {firstName}

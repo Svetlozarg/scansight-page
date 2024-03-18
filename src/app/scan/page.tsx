@@ -1,7 +1,6 @@
 "use client";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import logo from "../../../public/logo-black.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -38,11 +37,10 @@ const LOCATIONS_DATA = [
 ];
 
 const ScanPage = () => {
-  const searchParams = useSearchParams();
   const [loading, setLoading] = useState<boolean>(false);
   const [isVisited, setIsVisited] = useState<boolean>(false);
 
-  const scannedLocation = searchParams.get("location");
+  const [scannedLocationData, setScannedLocationData] = useState<string>("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,6 +50,11 @@ const ScanPage = () => {
 
   useEffect(() => {
     (async () => {
+      const scannedLocation = new URLSearchParams(window.location.search).get(
+        "location"
+      );
+      if (!scannedLocation) return window.location.replace("/");
+      setScannedLocationData(scannedLocation);
       try {
         if (scannedLocation && USER_ID) {
           if (
@@ -105,7 +108,7 @@ const ScanPage = () => {
         console.error(err);
       }
     })();
-  }, [scannedLocation]);
+  }, []);
 
   return (
     <Stack
@@ -161,16 +164,16 @@ const ScanPage = () => {
 
             <Typography component="p" variant="body1" textAlign="center">
               Ако имате желание може да прочетете повече за локацията{" "}
-              {scannedLocation === "heracleq-sintica"
+              {scannedLocationData === "heracleq-sintica"
                 ? "Хераклея Синтика"
                 : null}
-              {scannedLocation === "history-museum"
+              {scannedLocationData === "history-museum"
                 ? "Исторически Музей"
                 : null}
-              {scannedLocation === "samuil-fortress"
+              {scannedLocationData === "samuil-fortress"
                 ? "Самуилова Крепост"
                 : null}
-              {scannedLocation === "house-of-vanga" ? "Къща Ванга" : null}{" "}
+              {scannedLocationData === "house-of-vanga" ? "Къща Ванга" : null}{" "}
               <Link
                 href="https://visitpetrich.vercel.app/tourism/heraclea-sintica"
                 style={{ textDecoration: "underline" }}

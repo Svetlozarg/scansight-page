@@ -10,7 +10,7 @@ const HeracleaSintica = () => {
       py={{ xs: 4, sm: 4, md: 4 }}
       textAlign="justify"
     >
-      <Typography component="h4" variant="h3" textAlign="center">
+      <Typography component="h5" variant="h3" textAlign="center">
         Светлината на историческите битки, огледалото на тракийското величие.
       </Typography>
 
@@ -103,13 +103,17 @@ const HeracleaSintica = () => {
         Синтика продължава да разкрива тайните си.
       </Typography>
 
-      <iframe
-        width="100%"
-        height="600"
-        scrolling="no"
-        src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=%D0%90%D0%BD%D1%82%D0%B8%D1%87%D0%B5%D0%BD%20%D0%B3%D1%80%D0%B0%D0%B4%20%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0,%202863%20%D0%9F%D0%B5%D1%82%D1%80%D0%B8%D1%87+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-        style={{ border: 0 }}
-      />
+      <object
+        title="Heracleq Sintica Location"
+        data="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=%D0%90%D0%BD%D1%82%D0%B8%D1%87%D0%B5%D0%BD%20%D0%B3%D1%80%D0%B0%D0%B4%20%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0,%202863%20%D0%9F%D0%B5%D1%82%D1%80%D0%B8%D1%87+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+        style={{ width: "100vw", height: "400px" }}
+      >
+        <embed
+          src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=%D0%90%D0%BD%D1%82%D0%B8%D1%87%D0%B5%D0%BD%20%D0%B3%D1%80%D0%B0%D0%B4%20%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0,%202863%20%D0%9F%D0%B5%D1%82%D1%80%D0%B8%D1%87+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+          style={{ width: "100vw", height: "400px" }}
+        ></embed>
+        Error: Embedded data could not be displayed.
+      </object>
     </Stack>
   );
 };

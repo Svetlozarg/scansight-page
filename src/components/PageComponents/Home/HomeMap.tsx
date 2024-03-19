@@ -1,9 +1,12 @@
+"use client";
+import { useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Image from "next/image";
 import Button from "@/components/MUIComponents/Button";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import StarsIcon from "@mui/icons-material/Stars";
+import Modal from "@/components/MUIComponents/Modal";
 
 const MAP_CARDS_DATA = [
   {
@@ -174,6 +177,8 @@ interface HomeMapCardProps {
 }
 
 const HomeMapCard: React.FC<HomeMapCardProps> = ({ title, image }) => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
   return (
     <Stack justifyContent="center" alignItems="center" gap={2}>
       <Stack bgcolor="common.white" borderRadius="10px">
@@ -208,7 +213,36 @@ const HomeMapCard: React.FC<HomeMapCardProps> = ({ title, image }) => {
           </Stack>
         </Stack>
       </Stack>
-      <Button message="Сканирай QR" />
+      <Button message="Сканирай QR" onClick={() => setOpenModal(true)} />
+
+      <Modal
+        modalTitle="Как да сканирам код?"
+        open={openModal}
+        setOpen={setOpenModal}
+      >
+        <Stack mt={2} gap={4}>
+          <Typography component="p" variant="body1" textAlign="justify">
+            Трябва да се намирате на локацията и пред вас да се намира
+            обозначеният QR код. За да сканирате QR кода, трябва да използвате
+            камерата на вашия телефон. Насочете камерата към QR кода. След като
+            устройството ви разпознае QR кода, ще ви пренасочи към нашата
+            страница и ще ви покаже информация за това дали успешно сте
+            сканирали QR кода и колко точки сте получили.
+          </Typography>
+
+          <Typography component="p" variant="body1" textAlign="justify">
+            Пълните правила за точки и награди може да намерите в нашата начална
+            страница под секция &quot;Точки и Награди&quot;
+          </Typography>
+
+          <Typography component="p" variant="body1" textAlign="justify">
+            Екипът на ‘ScanSight’ и Община Петрич Ви пожелава успех и приятна
+            игра!
+          </Typography>
+
+          <Button message="Затвори" onClick={() => setOpenModal(false)} />
+        </Stack>
+      </Modal>
     </Stack>
   );
 };

@@ -10,6 +10,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "bg",
+    lng: "bg",
     resources: {
       bg: {
         translation: BG_LOCALE,

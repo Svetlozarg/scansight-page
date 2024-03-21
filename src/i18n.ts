@@ -5,7 +5,10 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { BG_LOCALE } from "./locale/bg";
 import { EN_LOCALE } from "./locale/en";
 
-if (!localStorage.getItem("i18nextLng")) {
+if (
+  typeof localStorage !== "undefined" &&
+  !localStorage.getItem("i18nextLng")
+) {
   localStorage.setItem("i18nextLng", "bg");
 }
 

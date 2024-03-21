@@ -120,7 +120,7 @@ const Appbar = () => {
         ) : null}
 
         {!firstName ? (
-          <Link href="/auth/login">
+          <Link href="/auth/login" style={{ marginRight: "10px" }}>
             <Stack
               direction="row"
               justifyContent="center"

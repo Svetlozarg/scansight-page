@@ -5,12 +5,15 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { BG_LOCALE } from "./locale/bg";
 import { EN_LOCALE } from "./locale/en";
 
+if (!localStorage.getItem("i18nextLng")) {
+  localStorage.setItem("i18nextLng", "bg");
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: "bg",
-    lng: "bg",
     resources: {
       bg: {
         translation: BG_LOCALE,

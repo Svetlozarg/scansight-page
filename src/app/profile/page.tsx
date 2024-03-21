@@ -110,11 +110,10 @@ const ProfilePage = () => {
 
         <Stack
           width="100%"
-          direction="row"
+          direction={{ xs: "column", sm: "row", md: "row" }}
           justifyContent="center"
           alignItems="center"
           gap={4}
-          flexWrap="wrap"
         >
           <Stack
             direction="row"

@@ -7,6 +7,7 @@ import Button from "@/components/MUIComponents/Button";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import StarsIcon from "@mui/icons-material/Stars";
 import Modal from "@/components/MUIComponents/Modal";
+import { useTranslation } from "next-i18next";
 
 const MAP_CARDS_DATA = [
   {
@@ -32,6 +33,7 @@ const MAP_CARDS_DATA = [
 ];
 
 const HomeMap = () => {
+  const { t } = useTranslation();
   return (
     <Stack
       width="100%"
@@ -42,7 +44,7 @@ const HomeMap = () => {
       py={20}
     >
       <Typography component="h2" variant="h2" textAlign="center" mb={10}>
-        Сканирай Туристически Обект
+        {t("sightseeing.title")}
       </Typography>
 
       <Stack
@@ -57,7 +59,12 @@ const HomeMap = () => {
         m="0 auto"
       >
         {MAP_CARDS_DATA.map((card, index) => (
-          <HomeMapCard key={index} title={card.title} image={card.image} />
+          <HomeMapCard
+            t={t}
+            key={index}
+            title={card.title}
+            image={card.image}
+          />
         ))}
       </Stack>
 
@@ -70,7 +77,7 @@ const HomeMap = () => {
         px={4}
       >
         <Typography component="h2" variant="h2" textAlign="center" mb={4}>
-          Точки и Награди
+          {t("sightseeing.rulesPrizes.title")}
         </Typography>
 
         <Stack>
@@ -86,45 +93,15 @@ const HomeMap = () => {
               }}
             />
             <Typography component="p" variant="h5" textAlign="justify">
-              Точки:
+              {t("sightseeing.rulesPrizes.points")}
             </Typography>
           </Stack>
 
           <ul>
-            <li>
-              Всеки посетен{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                туристически обект
-              </Typography>
-              , който има стикер с логото на ‘ScanSight’ в Община Петрич носи{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                5 точки
-              </Typography>{" "}
-              в акаунта на своя потребител.
-            </li>
-            <li>
-              Местата за посещение, които влизат в графа{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                туристически обекти{" "}
-              </Typography>
-              са следните: Хераклея Синтика, Къща Ванга, Исторически музей
-              Петрич и Самуилова Крепост.{" "}
-            </li>
-            <li>
-              Всеки посетен обект от секция хобита и свободно време, който има
-              стикер с логото на &apos;ScanSight&apos; в Община Петрич носи{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                3 точки
-              </Typography>{" "}
-              в акаунта на своя потребител.
-            </li>
-            <li>
-              Местата за посещение, които влизат в графа{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                хобита и свободно време
-              </Typography>{" "}
-              са следните: кино, билярд клуб
-            </li>
+            <li>{t("sightseeing.rulesPrizes.pointsListItem1")}</li>
+            <li>{t("sightseeing.rulesPrizes.pointsListItem2")}</li>
+            <li>{t("sightseeing.rulesPrizes.pointsListItem3")}</li>
+            <li>{t("sightseeing.rulesPrizes.pointsListItem4")}</li>
           </ul>
         </Stack>
 
@@ -137,31 +114,13 @@ const HomeMap = () => {
           >
             <EmojiEventsIcon sx={{ color: "#FEC50F" }} />
             <Typography component="p" variant="h5" textAlign="justify">
-              Награди:
+              {t("sightseeing.rulesPrizes.prizes")}
             </Typography>
           </Stack>
 
           <ul>
-            <li>
-              <Typography component="span" variant="body1" color="primary.main">
-                20{" "}
-              </Typography>
-              събрани точки отговарят на{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                Сертификат за Турист на Годината
-              </Typography>{" "}
-              .
-            </li>
-            <li>
-              <Typography component="span" variant="body1" color="primary.main">
-                50{" "}
-              </Typography>
-              събрани точки отговарят на предметна награда{" "}
-              <Typography component="span" variant="body1" color="primary.main">
-                тениска, шапка или изненада
-              </Typography>{" "}
-              предоставена от Община Петрич.
-            </li>
+            <li>{t("sightseeing.rulesPrizes.prizesListItem1")}</li>
+            <li>{t("sightseeing.rulesPrizes.prizesListItem2")}</li>
           </ul>
         </Stack>
       </Stack>
@@ -174,9 +133,10 @@ export default HomeMap;
 interface HomeMapCardProps {
   title: string;
   image: string;
+  t: any;
 }
 
-const HomeMapCard: React.FC<HomeMapCardProps> = ({ title, image }) => {
+const HomeMapCard: React.FC<HomeMapCardProps> = ({ title, image, t }) => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   return (
@@ -213,34 +173,33 @@ const HomeMapCard: React.FC<HomeMapCardProps> = ({ title, image }) => {
           </Stack>
         </Stack>
       </Stack>
-      <Button message="Сканирай QR" onClick={() => setOpenModal(true)} />
+      <Button
+        message={t("sightseeing.button")}
+        onClick={() => setOpenModal(true)}
+      />
 
       <Modal
-        modalTitle="Как да сканирам код?"
+        modalTitle={t("scanQr.title")}
         open={openModal}
         setOpen={setOpenModal}
       >
         <Stack mt={2} gap={4}>
           <Typography component="p" variant="body1" textAlign="justify">
-            Трябва да се намирате на локацията и пред вас да се намира
-            обозначеният QR код. За да сканирате QR кода, трябва да използвате
-            камерата на вашия телефон. Насочете камерата към QR кода. След като
-            устройството ви разпознае QR кода, ще ви пренасочи към нашата
-            страница и ще ви покаже информация за това дали успешно сте
-            сканирали QR кода и колко точки сте получили.
+            {t("scanQr.text1")}
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Пълните правила за точки и награди може да намерите в нашата начална
-            страница под секция &quot;Точки и Награди&quot;
+            {t("scanQr.text2")}
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Екипът на ‘ScanSight’ и Община Петрич Ви пожелава успех и приятна
-            игра!
+            {t("scanQr.text3")}
           </Typography>
 
-          <Button message="Затвори" onClick={() => setOpenModal(false)} />
+          <Button
+            message={t("scanQr.button")}
+            onClick={() => setOpenModal(false)}
+          />
         </Stack>
       </Modal>
     </Stack>

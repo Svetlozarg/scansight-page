@@ -9,6 +9,7 @@ import { CircularProgress, Paper, Stack, Typography } from "@mui/material";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 const fieldValidation = object({
@@ -27,6 +28,7 @@ type LoginFormValues = {
 };
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const [formStatus, setFormStatus] = useState<AlertStatuses>(null);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -75,7 +77,7 @@ const LoginPage = () => {
             ScanSight
           </Typography>
           <Typography component="h2" variant="h3">
-            Вход
+            {t("login")}
           </Typography>
         </Stack>
 
@@ -90,7 +92,7 @@ const LoginPage = () => {
                 <Stack spacing={3} mt={3}>
                   <TextField
                     name="email"
-                    label="Имейл Адрес"
+                    label={t("email")}
                     error={touched["email"] && !!errors["email"]}
                     helperText={touched["email"] && errors["email"]}
                     onChange={handleChange}
@@ -100,7 +102,7 @@ const LoginPage = () => {
 
                   <TextField
                     name="password"
-                    label="Парола"
+                    label={t("password")}
                     error={touched["password"] && !!errors["password"]}
                     helperText={touched["password"] && errors["password"]}
                     onChange={handleChange}
@@ -108,7 +110,7 @@ const LoginPage = () => {
                     type="password"
                   />
 
-                  <Button message="Вход" type="submit" />
+                  <Button message={t("login")} type="submit" />
 
                   <Alert
                     message={alertMessage}
@@ -123,10 +125,10 @@ const LoginPage = () => {
                     gap={1}
                   >
                     <Typography component="p" variant="body1">
-                      Нямате акаунт?
+                      {t("noAccount")}
                     </Typography>
                     <Link href="/auth/register" style={{ color: "#0E86D4" }}>
-                      Регистрирайте се тук
+                      {t("registerHere")}
                     </Link>
                   </Stack>
                 </Stack>

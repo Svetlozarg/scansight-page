@@ -1,7 +1,10 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useTranslation } from "react-i18next";
 
 const HouseVanga = () => {
+  const { t } = useTranslation();
+
   return (
     <Stack
       width="100%"
@@ -11,8 +14,7 @@ const HouseVanga = () => {
       textAlign="justify"
     >
       <Typography component="h5" variant="h3" textAlign="center">
-        Вратата към мистериите на миналото, прозорец към необятния свят на
-        бъдещето.
+        {t("readMore.houseVanga.title")}
       </Typography>
 
       <Box
@@ -36,46 +38,40 @@ const HouseVanga = () => {
           gap={1}
         >
           <CalendarMonthIcon />
-          <Typography>Всеки ден от 10:00 до 17:00 ч.</Typography>
+          <Typography>{t("readMore.houseVanga.workTime")}</Typography>
         </Stack>
       </Stack>
 
       <Typography component="p" variant="body1" textAlign="justify">
-        Музейната експозиция включва лични вещи, предмети, подаръци, които Ванга
-        е получавала от благодарни хора. Всички помещения, съхранили духа на
-        пророчицата, са запазили своята автентичност.
+        {t("readMore.houseVanga.text1")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        На първия етаж са молитвената стая и кухнята, а вдясно, след зимната
-        градина, е стаята, в която Ванга е приемала своите посетители.
+        {t("readMore.houseVanga.text2")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        На втория етаж се намират гостната, Белият салон, спалнята и остъклената
-        тераса, която е служила за отдих на пророчицата.
+        {t("readMore.houseVanga.text3")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Заповядайте в Къща Ванга, за да усетите завладяващата атмосфера в
-        скромния дом на една велика българка!
+        {t("readMore.houseVanga.text4")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Вангелия Гущерова е родена през 1911 г. Вследствие на внезапната буря,
-        на 12-годишна възраст тя остава сляпа завинаги.
+        {t("readMore.houseVanga.text5")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Постепенно започват да се проявяват нейните пророчески способности.
-        Става известна през годините на Втората световна война. Отчаяни хора,
-        загубили връзка с близките си, отивали при Ванга с надеждата да ги
-        успокои или да посочи лобните им места. Хиляди хора идвали при Ванга със
-        своята болка и си тръгвали с надежда. Често са я посещавали различни
-        държавници, културни и спортни дейци.
+        {t("readMore.houseVanga.text6")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Днес Къща Ванга е една от основните забележителности в центъра на града
-        – обект към Исторически музей Петрич. Къщата на българската пророчица се
-        радва на посетители от цял свят.
+        {t("readMore.houseVanga.text7")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Семейната къща на Ванга отваря врати за посетители на 5 май 2008 г.
+        {t("readMore.houseVanga.text8")}
       </Typography>
 
       <object

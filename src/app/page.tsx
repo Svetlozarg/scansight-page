@@ -1,3 +1,4 @@
+"use client";
 import { Stack } from "@mui/material";
 import HomeHero from "@/components/PageComponents/Home/HomeHero";
 import HomeMap from "@/components/PageComponents/Home/HomeMap";

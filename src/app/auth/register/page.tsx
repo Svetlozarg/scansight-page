@@ -1,6 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CircularProgress, Paper, Stack, Typography } from "@mui/material";
+import {
+  Checkbox,
+  CircularProgress,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import Alert, { AlertStatuses } from "@/components/MUIComponents/Alert";
 import Button from "@/components/MUIComponents/Button";
 import TextField from "@/components/MUIComponents/TextField";
@@ -9,6 +15,8 @@ import Link from "next/link";
 import { object, string, ref } from "yup";
 import { signUp } from "@/services/Auth/auth";
 import { USER_ID } from "@/helpers/helpers";
+import MuiPhoneNumber from "material-ui-phone-number-2";
+import { useTranslation } from "react-i18next";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -41,9 +49,11 @@ type RegisterFormValues = {
 };
 
 const RegisterPage = () => {
+  const { t } = useTranslation();
   const [formStatus, setFormStatus] = useState<AlertStatuses>(null);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const initialValues: RegisterFormValues = {
     firstname: "",
     lastname: "",
@@ -60,6 +70,11 @@ const RegisterPage = () => {
   }, []);
 
   const handleFormSubmit = async (values: RegisterFormValues) => {
+    if (!isChecked) {
+      setFormStatus("error");
+      setAlertMessage("Моля, потвърдете условията за ползване на ScanSight");
+      throw new Error("Моля, потвърдете условията за ползване на ScanSight");
+    }
     try {
       setLoading(true);
       setFormStatus(null);
@@ -100,7 +115,7 @@ const RegisterPage = () => {
             ScanSight
           </Typography>
           <Typography component="h2" variant="h3">
-            Регистрация
+            {t("register")}
           </Typography>
         </Stack>
 
@@ -115,7 +130,7 @@ const RegisterPage = () => {
                 <Stack spacing={3} mt={3}>
                   <TextField
                     name="firstname"
-                    label="Име"
+                    label={t("firstName")}
                     error={touched["firstname"] && !!errors["firstname"]}
                     helperText={touched["firstname"] && errors["firstname"]}
                     onChange={handleChange}
@@ -125,7 +140,7 @@ const RegisterPage = () => {
 
                   <TextField
                     name="lastname"
-                    label="Фамилия"
+                    label={t("lastName")}
                     error={touched["lastname"] && !!errors["lastname"]}
                     helperText={touched["lastname"] && errors["lastname"]}
                     onChange={handleChange}
@@ -135,7 +150,7 @@ const RegisterPage = () => {
 
                   <TextField
                     name="email"
-                    label="Имейл Адрес"
+                    label={t("email")}
                     error={touched["email"] && !!errors["email"]}
                     helperText={touched["email"] && errors["email"]}
                     onChange={handleChange}
@@ -143,9 +158,12 @@ const RegisterPage = () => {
                     type="email"
                   />
 
-                  <TextField
+                  <MuiPhoneNumber
                     name="phone"
-                    label="Тел. Номер"
+                    defaultCountry="bg"
+                    regions={"europe"}
+                    variant="filled"
+                    label={t("phoneNumber")}
                     error={touched["phone"] && !!errors["phone"]}
                     helperText={touched["phone"] && errors["phone"]}
                     onChange={handleChange}
@@ -155,7 +173,7 @@ const RegisterPage = () => {
 
                   <TextField
                     name="password"
-                    label="Парола"
+                    label={t("password")}
                     error={touched["password"] && !!errors["password"]}
                     helperText={touched["password"] && errors["password"]}
                     onChange={handleChange}
@@ -165,7 +183,7 @@ const RegisterPage = () => {
 
                   <TextField
                     name="confirmPassword"
-                    label="Потвърди Паролата"
+                    label={t("confirmPassword")}
                     error={
                       touched["confirmPassword"] && !!errors["confirmPassword"]
                     }
@@ -177,7 +195,19 @@ const RegisterPage = () => {
                     type="password"
                   />
 
-                  <Button message="Регистрация" type="submit" />
+                  <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Checkbox
+                      checked={isChecked}
+                      onChange={(e) => setIsChecked(e.target.checked)}
+                    />
+                    <Typography>{t("termsOfUse")}</Typography>
+                  </Stack>
+
+                  <Button message={t("register")} type="submit" />
 
                   <Alert
                     message={alertMessage}
@@ -192,10 +222,10 @@ const RegisterPage = () => {
                     gap={1}
                   >
                     <Typography component="p" variant="body1">
-                      Имате акаунт?
+                      {t("haveAccount")}
                     </Typography>
                     <Link href="/auth/login" style={{ color: "#0E86D4" }}>
-                      Влезте от тук
+                      {t("loginHere")}
                     </Link>
                   </Stack>
                 </Stack>

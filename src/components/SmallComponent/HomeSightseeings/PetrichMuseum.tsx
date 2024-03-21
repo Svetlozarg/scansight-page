@@ -2,8 +2,10 @@ import { Box, Stack, Typography } from "@mui/material";
 import Link from "next/link";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LinkIcon from "@mui/icons-material/Link";
+import { useTranslation } from "react-i18next";
 
 const PetrichMuseum = () => {
+  const { t } = useTranslation();
   return (
     <Stack
       width="100%"
@@ -13,7 +15,7 @@ const PetrichMuseum = () => {
       textAlign="justify"
     >
       <Typography component="h5" variant="h3" textAlign="center">
-        Преживей миналото, обогати състоянието на настоящето
+        {t("readMore.historicalMuseum.title")}
       </Typography>
 
       <Box
@@ -37,7 +39,7 @@ const PetrichMuseum = () => {
           gap={1}
         >
           <CalendarMonthIcon />
-          <Typography>Понеделник – Неделя, от 09:00 до 18:00 ч.</Typography>
+          <Typography>{t("readMore.historicalMuseum.workTime")}</Typography>
         </Stack>
 
         <Stack
@@ -49,44 +51,34 @@ const PetrichMuseum = () => {
           <LinkIcon />
           <Link href="https://petrichhistorymuseum.bg" target="_blank">
             <Typography sx={{ textDecoration: "underline" }}>
-              Уебсайт
+              {t("readMore.historicalMuseum.website")}
             </Typography>
           </Link>
         </Stack>
       </Stack>
 
       <Typography component="p" variant="body1" textAlign="justify">
-        Новият дом на Исторически музей Петрич е сред най-значимите сгради,
-        проектирани и предвидени за нуждите на музейното дело, строени в
-        последното десетилетие в България. От месец май 2022 г. е отворен за
-        посетители.
+        {t("readMore.historicalMuseum.text1")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        На площ от над 1 800 кв.м. се съхранява и експонира културно –
-        историческото наследство на Петрич и района.
+        {t("readMore.historicalMuseum.text2")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Трансформираното градско пространство на стари казарми в центъра на
-        Петрич се превърнаха в нов градски парк, а сред него - стара
-        девоенизирана сграда се преобрази в новия дом на Исторически музей
-        Петрич. С модерна архитектура в индустриален стил, преобразяващи се
-        зелени фасади и атрактивно околно пространство, сградата отговаря на
-        всички принципи на новия Европейски Баухаус.
+        {t("readMore.historicalMuseum.text3")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Чрез похватите на съвременната музеология са представени най-ценните
-        експонати от фондовете на музея. Експозициите и изложбите са подредени в
-        три основни направления Археология, История и Етнография. Отвореното
-        експозиционно пространство позволява плавно преминаване между различните
-        теми, свързани с различните периоди от развитието на Петрич и региона.
+        {t("readMore.historicalMuseum.text4")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        Предвидена е зала за временни изложби, която дава възможност за
-        представяне на гостуващи изложби
+        {t("readMore.historicalMuseum.text5")}
       </Typography>
+
       <Typography component="p" variant="body1" textAlign="justify">
-        В музея функционира и Музейна работилница със свободен достъп за деца и
-        ученици, организирани и свободни посещения с предварително записване.
+        {t("readMore.historicalMuseum.text6")}
       </Typography>
 
       <object

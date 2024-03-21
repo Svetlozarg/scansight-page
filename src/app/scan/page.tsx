@@ -12,6 +12,7 @@ import {
 import { USER_ID } from "@/helpers/helpers";
 import { GetQueryUserById } from "@/services/User/apiUserSnippets";
 import { getQueryUserById } from "@/services/User/apiUserGetQueries";
+import { useTranslation } from "react-i18next";
 
 const LOCATIONS_DATA = [
   {
@@ -37,10 +38,9 @@ const LOCATIONS_DATA = [
 ];
 
 const ScanPage = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
   const [isVisited, setIsVisited] = useState<boolean>(false);
-
-  const [scannedLocationData, setScannedLocationData] = useState<string>("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -54,7 +54,7 @@ const ScanPage = () => {
         "location"
       );
       if (!scannedLocation) return window.location.replace("/");
-      setScannedLocationData(scannedLocation);
+
       try {
         if (scannedLocation && USER_ID) {
           if (
@@ -151,40 +151,23 @@ const ScanPage = () => {
               color="primary.main"
               textAlign="center"
             >
-              Успешно сканирахте кода
+              {t("scan.codeScanned")}
             </Typography>
 
             <Typography component="p" variant="body1" textAlign="center">
-              Локацията беше успешно сканирана от вас и бяха добавени{" "}
-              <Typography component="span" variant="h4" color="primary.main">
-                5 точки
-              </Typography>{" "}
-              към вашият профил!
+              {t("scan.text1")}
             </Typography>
 
             <Typography component="p" variant="body1" textAlign="center">
-              Ако имате желание може да прочетете повече за локацията{" "}
-              {scannedLocationData === "heracleq-sintica"
-                ? "Хераклея Синтика"
-                : null}
-              {scannedLocationData === "history-museum"
-                ? "Исторически Музей"
-                : null}
-              {scannedLocationData === "samuil-fortress"
-                ? "Самуилова Крепост"
-                : null}
-              {scannedLocationData === "house-of-vanga" ? "Къща Ванга" : null}{" "}
-              <Link
-                href="https://visitpetrich.vercel.app/tourism/heraclea-sintica"
-                style={{ textDecoration: "underline" }}
-              >
+              {t("scan.text2")}{" "}
+              <Link href="/" style={{ textDecoration: "underline" }}>
                 тук
               </Link>
             </Typography>
 
             <Link href="/profile" style={{ textDecoration: "underline" }}>
               <Typography component="p" variant="body1" textAlign="center">
-                Вижте вашите точки и посетени локации
+                {t("scan.visitProfile")}
               </Typography>
             </Link>
           </Stack>
@@ -219,12 +202,12 @@ const ScanPage = () => {
               color="error"
               textAlign="center"
             >
-              Вече сте сканирали този код
+              {t("scan.codeAlreadyScanned")}
             </Typography>
 
             <Link href="/profile" style={{ textDecoration: "underline" }}>
               <Typography component="p" variant="body1" textAlign="center">
-                Вижте вашите точки и посетени локации
+                {t("scan.visitProfile")}
               </Typography>
             </Link>
           </Stack>

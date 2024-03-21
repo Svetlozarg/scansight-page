@@ -28,7 +28,10 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { FacebookIcon, ViberIcon, TwitterIcon } from "react-share";
-import certificate from "../../../public/scansight-certificate.png";
+import certificateBG from "../../../public/certificate-bg.png";
+import certificateEN from "../../../public/certificate-en.png";
+import { useTranslation } from "react-i18next";
+import i18n from "@/i18n";
 
 type UserType = {
   id: string;
@@ -41,6 +44,7 @@ type UserType = {
 };
 
 const ProfilePage = () => {
+  const { t } = useTranslation();
   const [user, setUser] = useState<UserType>({
     id: "",
     firstname: "",
@@ -82,17 +86,24 @@ const ProfilePage = () => {
   }, []);
 
   const handleDownloadCertificate = () => {
-    const link = document.createElement("a");
-    link.href = certificate.src;
-    link.download = "scansight-certificate.png";
-    link.click();
+    if (i18n.language === "bg") {
+      const link = document.createElement("a");
+      link.href = certificateBG.src;
+      link.download = "certificate-bg.png";
+      link.click();
+    } else {
+      const link = document.createElement("a");
+      link.href = certificateEN.src;
+      link.download = "certificate-en.png";
+      link.click();
+    }
   };
 
   return (
     <Stack pt={20}>
       <Stack justifyContent="center" alignItems="center" gap={4}>
         <Typography component="h2" variant="h2">
-          Вашият Профил
+          {t("profile.title")}
         </Typography>
 
         <AccountCircleIcon sx={{ fontSize: "15rem" }} />
@@ -161,10 +172,10 @@ const ProfilePage = () => {
         <Stack width="100%" maxWidth="1400px" margin="0 auto" mb={2}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">
-              {"<"} Назад
+              {t("profile.back")}
             </Link>
-            <Typography color="inherit">Начало</Typography>
-            <Typography color="text.primary">Профил</Typography>
+            <Typography color="inherit"> {t("profile.home")}</Typography>
+            <Typography color="text.primary">{t("profile.profile")}</Typography>
           </Breadcrumbs>
         </Stack>
 
@@ -189,13 +200,16 @@ const ProfilePage = () => {
             >
               <Stack gap={2}>
                 <Typography component="h3" variant="h2">
-                  Посетили сте{" "}
-                  {user.locations.filter((location) => location.visited).length}
-                  /{totalSightseeings} обекта!
+                  {t("profile.totalLocationsTitle", {
+                    locations: user.locations.filter(
+                      (location) => location.visited
+                    ).length,
+                    totalLocations: totalSightseeings,
+                  })}
                 </Typography>
 
                 <Typography component="p" variant="h4" fontWeight="normal">
-                  Вие имате {user.points} събрани точки!
+                  {t("profile.pointsCollected", { points: user.points })}
                 </Typography>
               </Stack>
 
@@ -210,14 +224,14 @@ const ProfilePage = () => {
                 display={{ xs: "none", sm: "none", md: "flex" }}
               >
                 <Typography component="h4" variant="h1" color="common.white">
-                  {user.points} т.
+                  {user.points} {t("profile.p")}
                 </Typography>
               </Stack>
             </Stack>
 
             <Stack mt={4}>
               <Typography component="h3" variant="h3" mb={2}>
-                Вашият прогрес
+                {t("profile.progress")}
               </Typography>
 
               <Stack width="100%" gap={1}>
@@ -245,7 +259,9 @@ const ProfilePage = () => {
                       color={location.visited ? "primary.main" : "red"}
                       display={{ xs: "none", sm: "block", md: "block" }}
                     >
-                      {location.visited ? "Посетен" : "Не е посетен"}
+                      {location.visited
+                        ? t("profile.visited")
+                        : t("profile.notVisited")}
                     </Typography>
                   </Stack>
                 ))}
@@ -266,17 +282,21 @@ const ProfilePage = () => {
               />
               <Stack justifyContent="center" alignItems="center" gap={2}>
                 <Typography component="p" variant="h3">
-                  {user.points}/{totalPoints} т. събрани
+                  {t("profile.totalPoints", {
+                    userPoints: user.points,
+                    totalPoints: totalPoints,
+                  })}
                 </Typography>
-                {totalPoints === user.points ? (
+                {totalPoints <= user.points ? (
                   <Stack gap={2} mt={4}>
                     <Typography
                       component="p"
                       variant="body1"
                       textAlign="center"
                     >
-                      Поздравления! Вие събрахте общо {totalPoints} точки и може
-                      да вземете вашият сертификат!
+                      {t("profile.congratulationsText1", {
+                        totalPoints: totalPoints,
+                      })}
                     </Typography>
 
                     <Typography
@@ -284,7 +304,7 @@ const ProfilePage = () => {
                       variant="body1"
                       textAlign="center"
                     >
-                      Споделете вашето постижение с приятели!
+                      {t("profile.congratulationsText2")}{" "}
                     </Typography>
                     <Stack
                       direction="row"
@@ -315,14 +335,13 @@ const ProfilePage = () => {
                     </Stack>
 
                     <Button
-                      message="Изтегли"
+                      message={t("profile.download")}
                       onClick={handleDownloadCertificate}
                     />
                   </Stack>
                 ) : (
                   <Typography component="h3" variant="h4" textAlign="center">
-                    Съберете общо {totalPoints} точки, за да вземете вашият
-                    сертификат!
+                    {t("profile.collectPoints", { totalPoints: totalPoints })}
                   </Typography>
                 )}
               </Stack>

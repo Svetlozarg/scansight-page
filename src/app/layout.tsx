@@ -2,6 +2,7 @@ import Appbar from "@/components/Layout/Appbar";
 import Footer from "@/components/Layout/Footer";
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import type { Metadata } from "next";
+import "../i18n";
 
 export const metadata: Metadata = {
   title: {

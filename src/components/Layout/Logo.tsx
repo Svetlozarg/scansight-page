@@ -2,23 +2,29 @@ import Link from "next/link";
 
 import logo from "../../../public/logo-black.png";
 import Image from "next/image";
+import { Box } from "@mui/material";
 
 const Logo = () => {
   return (
-    <Link href="/">
-      <Image
-        src={logo}
-        width={100}
-        height={100}
-        alt="scan sight logo"
-        style={{
-          width: "150px",
-          height: "auto",
-          objectFit: "cover",
-          marginTop: 70,
-        }}
-      />
-    </Link>
+    <Box
+      width="100%"
+      maxWidth={{ xs: "90px", sm: "100px", md: "120px" }}
+      mt="10px"
+    >
+      <Link href="/">
+        <Image
+          src={logo}
+          width={100}
+          height={100}
+          alt="scan sight logo"
+          style={{
+            width: "100%",
+            height: "auto",
+            objectFit: "cover",
+          }}
+        />
+      </Link>
+    </Box>
   );
 };
 

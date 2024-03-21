@@ -5,6 +5,8 @@ import HeracleaSintica from "@/components/SmallComponent/HomeSightseeings/Heracl
 import HouseVanga from "@/components/SmallComponent/HomeSightseeings/HouseVanga";
 import PetrichMuseum from "@/components/SmallComponent/HomeSightseeings/PetrichMuseum";
 import SamuilFortress from "@/components/SmallComponent/HomeSightseeings/SamuilFortress";
+import { useTranslation } from "next-i18next";
+import Link from "next/link";
 
 const TABS_DATA = [
   {
@@ -18,6 +20,9 @@ const TABS_DATA = [
   },
   {
     title: "4. Самуилова Крепост",
+  },
+  {
+    title: "Прочети Повече",
   },
 ];
 
@@ -51,6 +56,7 @@ function a11yProps(index: number) {
 }
 
 const HomeSightseeings = () => {
+  const { t } = useTranslation();
   const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -60,7 +66,7 @@ const HomeSightseeings = () => {
   return (
     <Stack width="100%" px={2} py={10}>
       <Typography component="h2" variant="h2" textAlign="center" mb={4}>
-        Прочетете Повече
+        {t("readMore.title")}
       </Typography>
 
       <Stack justifyContent="center" alignItems="center">
@@ -74,14 +80,34 @@ const HomeSightseeings = () => {
             },
           }}
           onChange={handleChange}
+          TabIndicatorProps={{
+            style: { display: "none" },
+          }}
         >
           {TABS_DATA.map((tab, index) => (
             <Tab
               key={index}
               label={
-                <Typography component="p" variant="body1" color="common.black">
-                  {tab.title}
-                </Typography>
+                tab.title !== "Прочети Повече" ? (
+                  <Typography
+                    component="p"
+                    variant="body1"
+                    color="common.black"
+                    borderBottom="2px solid"
+                    borderColor={
+                      value === index ? "primary.main" : "transparent"
+                    }
+                    sx={{ transition: "250ms ease-in-out" }}
+                  >
+                    {tab.title}
+                  </Typography>
+                ) : (
+                  <Link href="https://visitpetrich.com/tourism">
+                    <Typography component="p" variant="h5" color="primary.main">
+                      {t("readMoreText")}
+                    </Typography>
+                  </Link>
+                )
               }
               {...a11yProps(0)}
             />

@@ -1,10 +1,13 @@
+"use client";
 import { Stack, Typography } from "@mui/material";
-
 import heroImg from "../../../../public/hero-img.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const HomeHero = () => {
+  const { t } = useTranslation();
+
   return (
     <Stack
       width="100%"
@@ -12,7 +15,7 @@ const HomeHero = () => {
       justifyContent="center"
       alignItems="center"
       direction={{ sm: "column", md: "row" }}
-      pt={{ xs: 20, sm: 20, md: 0 }}
+      pt={{ xs: 10, sm: 10, md: 0 }}
       sx={{
         background: {
           xs: "linear-gradient(to bottom right, #B0E1B4, #14AE5C)",
@@ -46,24 +49,15 @@ const HomeHero = () => {
             >
               ScanSight{" "}
             </Typography>
-            е софтуер, който предоставя на своите потребители възможността да
-            сканира предварително обозначени QR кодове. Тези стикери и табели са
-            позиционирани на различни туристически обекти в региона, като всеки
-            сканиран QR код носи определен брой точки в акаунта на своя
-            потребител.
+            {t("hero.text1")}
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Целта на приложението е да мотивира туристическата активност в
-            региона, като направи преживяването на потребителите интересно и
-            забавно.
+            {t("hero.text2")}
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Софтуерът е обвързан с Община Петрич и предоставя уникалната
-            възможност за печалба на различни награди, които отговарят на
-            събраният брой точки от потребителя. За повече информация относно
-            точковата система и наградите може да прочетете{" "}
+            {t("hero.text3")}{" "}
             <Link href="#points-and-prizes">
               <Typography
                 component="span"
@@ -82,15 +76,14 @@ const HomeHero = () => {
                   },
                 }}
               >
-                тук
+                {t("hero.here")}
               </Typography>
             </Link>
             .
           </Typography>
 
           <Typography component="p" variant="body1" textAlign="justify">
-            Екипът на ‘ScanSight’ и Община Петрич Ви пожелава успех и приятна
-            игра!
+            {t("hero.text4")}
           </Typography>
         </Stack>
       </Stack>

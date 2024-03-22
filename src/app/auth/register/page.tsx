@@ -18,18 +18,13 @@ import { USER_ID } from "@/helpers/helpers";
 import MuiPhoneNumber from "material-ui-phone-number-2";
 import { useTranslation } from "react-i18next";
 
-const phoneRegExp =
-  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
 const fieldValidation = object({
   firstname: string().required("Полето е задължително"),
   lastname: string().required("Полето е задължително"),
   email: string()
     .email("Въведете валиден имейл")
     .required("Полето е задължително"),
-  phone: string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("Полето е задължително"),
+  phone: string().required("Полето е задължително"),
   password: string()
     .trim()
     .min(8, "Дължитената трябва да е поне 8 символа")
@@ -166,7 +161,9 @@ const RegisterPage = () => {
                     label={t("phoneNumber")}
                     error={touched["phone"] && !!errors["phone"]}
                     helperText={touched["phone"] && errors["phone"]}
-                    onChange={handleChange}
+                    onChange={(e: any) => {
+                      values.phone = e;
+                    }}
                     value={values.phone}
                     type="phone"
                   />

@@ -1,6 +1,6 @@
 "use client";
 import { Stack, Typography } from "@mui/material";
-import heroImg from "../../../../public/hero-img.png";
+import heroImg from "../../../../public/assets/hero-img.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslation } from "next-i18next";

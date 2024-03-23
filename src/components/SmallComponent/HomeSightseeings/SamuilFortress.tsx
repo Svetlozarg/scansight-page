@@ -1,5 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import samuil from "../../../../public/assets/samuil.jpg";
 
 const SamuilFortress = () => {
   const { t } = useTranslation();
@@ -19,8 +20,7 @@ const SamuilFortress = () => {
         sx={{
           width: "100%",
           height: "600px",
-          backgroundImage:
-            "url('https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A1%D0%B0%D0%BC%D1%83%D0%B8%D0%BB%D0%BE%D0%B2%D0%B0%20%D0%9A%D1%80%D0%B5%D0%BF%D0%BE%D1%81%D1%82/DJI_0378-min_Sn0Ycsga4.jpg?updatedAt=1708343695985')",
+          backgroundImage: `url(${samuil.src})`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

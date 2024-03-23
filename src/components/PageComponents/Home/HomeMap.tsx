@@ -2,33 +2,33 @@
 import { useState } from "react";
 import { Stack, Typography } from "@mui/material";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Button from "@/components/MUIComponents/Button";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import StarsIcon from "@mui/icons-material/Stars";
 import Modal from "@/components/MUIComponents/Modal";
 import { useTranslation } from "next-i18next";
+import house from "../../../../public/assets/house.jpg";
+import museum from "../../../../public/assets/museum.jpg";
+import sintica from "../../../../public/assets/sintika.jpg";
+import samuil from "../../../../public/assets/samuil.jpg";
 
 const MAP_CARDS_DATA = [
   {
     title: "1. Хераклея Синтика",
-    image:
-      "https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%20(1)-min_eDDWNTLPh.jpg",
+    image: sintica,
   },
   {
     title: "2. Къща Ванга",
-    image:
-      "https://ik.imagekit.io/obelussoft/VisitPetrich/HOR09006_vicgp-nL9.jpg",
+    image: house,
   },
   {
     title: "3. Исторически  музей",
-    image:
-      "https://ik.imagekit.io/obelussoft/VisitPetrich/petrich-museum_7VZpceUwp.jpg",
+    image: museum,
   },
   {
     title: "4. Самуилова Крепост",
-    image:
-      "https://ik.imagekit.io/obelussoft/VisitPetrich/HOR09102%20(1)_5qRy2wlXs.jpg",
+    image: samuil,
   },
 ];
 
@@ -132,7 +132,7 @@ export default HomeMap;
 
 interface HomeMapCardProps {
   title: string;
-  image: string;
+  image: StaticImageData;
   t: any;
 }
 

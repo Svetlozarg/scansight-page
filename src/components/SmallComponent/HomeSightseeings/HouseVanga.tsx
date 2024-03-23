@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTranslation } from "react-i18next";
+import house from "../../../../public/assets/house.jpg";
 
 const HouseVanga = () => {
   const { t } = useTranslation();
@@ -21,8 +22,7 @@ const HouseVanga = () => {
         sx={{
           width: "100%",
           height: "600px",
-          backgroundImage:
-            "url('https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%9A%D1%8A%D1%89%D0%B0%20%D0%92%D0%B0%D0%BD%D0%B3%D0%B0/HOR09006_XreCdkqJ6.jpg?updatedAt=1708343476763')",
+          backgroundImage: `url('${house.src}')`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

@@ -11,8 +11,8 @@ import { usePathname, useRouter } from "next/navigation";
 import LoginIcon from "@mui/icons-material/Login";
 import i18n from "@/i18n";
 import { useTranslation } from "react-i18next";
-import flagBG from "../../../public/bg-flag.png";
-import flagEN from "../../../public/en-flag.png";
+import flagBG from "../../../public/assets/bg-flag.png";
+import flagEN from "../../../public/assets/en-flag.png";
 import Image from "next/image";
 
 const lngs = {

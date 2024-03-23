@@ -3,6 +3,7 @@ import Link from "next/link";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LinkIcon from "@mui/icons-material/Link";
 import { useTranslation } from "react-i18next";
+import museum from "../../../../public/assets/museum.jpg";
 
 const PetrichMuseum = () => {
   const { t } = useTranslation();
@@ -22,8 +23,7 @@ const PetrichMuseum = () => {
         sx={{
           width: "100%",
           height: "600px",
-          backgroundImage:
-            "url('https://ik.imagekit.io/obelussoft/VisitPetrich/p6Px8RBD.jpg?updatedAt=1708364289427')",
+          backgroundImage: `url('${museum.src}')`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

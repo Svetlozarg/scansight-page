@@ -1,6 +1,7 @@
 import { Box, Stack, Typography } from "@mui/material";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useTranslation } from "next-i18next";
+import sintica from "../../../../public/assets/sintika.jpg";
 
 const HeracleaSintica = () => {
   const { t } = useTranslation();
@@ -21,8 +22,7 @@ const HeracleaSintica = () => {
         sx={{
           width: "100%",
           height: "600px",
-          backgroundImage:
-            "url('https://ik.imagekit.io/obelussoft/VisitPetrich/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F/%D0%A5%D0%B5%D1%80%D0%B0%D0%BA%D0%BB%D0%B5%D1%8F%20%D0%A1%D0%B8%D0%BD%D1%82%D0%B8%D0%BA%D0%B0%20(1)-min_eDDWNTLPh.jpg?updatedAt=1708357634883')",
+          backgroundImage: `url('${sintica.src}')`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",

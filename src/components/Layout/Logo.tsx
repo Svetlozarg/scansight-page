@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import logo from "../../../public/logo-black.png";
+import logo from "../../../public/assets/logo-black.png";
 import Image from "next/image";
 import { Box } from "@mui/material";
 

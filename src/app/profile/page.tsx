@@ -28,8 +28,8 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { FacebookIcon, ViberIcon, TwitterIcon } from "react-share";
-import certificateBG from "../../../public/certificate-bg.png";
-import certificateEN from "../../../public/certificate-en.png";
+import certificateBG from "../../../public/assets/certificate-bg.png";
+import certificateEN from "../../../public/assets/certificate-en.png";
 import { useTranslation } from "react-i18next";
 import i18n from "@/i18n";
 

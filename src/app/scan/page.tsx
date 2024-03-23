@@ -1,7 +1,7 @@
 "use client";
 import { CircularProgress, Stack, Typography } from "@mui/material";
 import Link from "next/link";
-import logo from "../../../public/logo-black.png";
+import logo from "../../../public/assets/logo-black.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { callApi } from "@/services/callApi";
